@@ -191,3 +191,36 @@ footer {
   }
 }
 
+/* LIGHTBOX NAV ARROWS (PC) */
+#lightbox .nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 48px;
+  color: #fff;
+  cursor: pointer;
+  padding: 20px;
+  user-select: none;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+#lightbox .nav:hover {
+  opacity: 1;
+}
+
+#lightbox .prev {
+  left: 20px;
+}
+
+#lightbox .next {
+  right: 20px;
+}
+
+/* Hide arrows on mobile */
+@media (max-width: 768px) {
+  #lightbox .nav {
+    display: none;
+  }
+}
+
