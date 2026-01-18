@@ -168,30 +168,6 @@ footer {
   z-index: 9999;
 }
 
-#lightbox.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-#lightbox img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
-  animation: zoomIn 0.35s ease;
-}
-
-@keyframes zoomIn {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* LIGHTBOX NAV ARROWS (PC) */
 #lightbox .nav {
   position: absolute;
   top: 50%;
@@ -205,10 +181,20 @@ footer {
   transition: 0.3s;
 }
 
+#lightbox.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  animation: zoomIn 0.35s ease;
+}
 #lightbox .nav:hover {
   opacity: 1;
 }
-
 #lightbox .prev {
   left: 20px;
 }
@@ -217,10 +203,20 @@ footer {
   right: 20px;
 }
 
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 /* Hide arrows on mobile */
 @media (max-width: 768px) {
   #lightbox .nav {
     display: none;
   }
 }
-
