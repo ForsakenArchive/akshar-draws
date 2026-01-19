@@ -34,6 +34,7 @@ let currentIndex = 0;
 
 /* ---------- OPEN ---------- */
 function openLightbox(index) {
+  document.querySelector("header").style.display = "none";
   currentIndex = index;
   lightbox.classList.add("active");
   lightboxImg.src = galleryImages[currentIndex].src;
@@ -47,6 +48,7 @@ galleryImages.forEach((img, index) => {
 
 /* ---------- CLOSE ---------- */
 function closeLightbox() {
+  document.querySelector("header").style.display = "";
   lightbox.classList.remove("active");
   document.body.style.overflow = "auto";
 }
