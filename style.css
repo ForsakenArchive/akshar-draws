@@ -154,6 +154,13 @@ footer {
   }
 }
 
+#lightbox.active ~ header,
+#lightbox.active ~ .nav,
+#lightbox.active ~ nav {
+  pointer-events: none;
+  opacity: 0;
+}
+
 /* FULLSCREEN LIGHTBOX */
 /* LIGHTBOX BASE */
 #lightbox {
@@ -163,7 +170,8 @@ footer {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-  z-index: 9999;
+  z-index: 999999;
+  isolation: isolate;
 }
 
 #lightbox.active {
@@ -195,19 +203,18 @@ footer {
   transform: translateY(-50%);
   background: none;
   border: none;
-  color: white;
+  color: #fff;
   font-size: 52px;
+  padding: 24px;
   cursor: pointer;
-  padding: 20px;
-  z-index: 10000;
+  z-index: 1000000;
 
-  opacity: 0.65;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
 }
 
 #lightbox .nav:hover {
   opacity: 1;
-  transform: translateY(-50%) scale(1.1);
 }
 
 #lightbox .prev {
@@ -217,6 +224,7 @@ footer {
 #lightbox .next {
   right: 24px;
 }
+
 
 /* MOBILE */
 @media (max-width: 768px) {
