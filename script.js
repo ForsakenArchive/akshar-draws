@@ -1,14 +1,11 @@
-const reveals = document.querySelectorAll(".reveal");
+/* =========================
+   GALLERY LIGHTBOX SYSTEM
+========================= */
 
-window.addEventListener("scroll", () => {
-  reveals.forEach(el => {
-    const top = el.getBoundingClientRect().top;
-    if (top < window.innerHeight - 100) {
-      el.classList.add("active");
-    }
-  });
-});
-const galleryImages = [...document.querySelectorAll(".card img")];
+// Get all gallery images
+const galleryImages = Array.from(document.querySelectorAll(".card img"));
+
+// Lightbox elements
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const prevBtn = document.querySelector(".prev");
@@ -16,7 +13,7 @@ const nextBtn = document.querySelector(".next");
 
 let currentIndex = 0;
 
-// OPEN
+/* ---------- OPEN ---------- */
 function openLightbox(index) {
   currentIndex = index;
   lightbox.classList.add("active");
@@ -24,21 +21,25 @@ function openLightbox(index) {
   document.body.style.overflow = "hidden";
 }
 
+// Attach click to gallery images
 galleryImages.forEach((img, index) => {
   img.addEventListener("click", () => openLightbox(index));
 });
 
-// CLOSE
+/* ---------- CLOSE ---------- */
 function closeLightbox() {
   lightbox.classList.remove("active");
   document.body.style.overflow = "auto";
 }
 
+// Close when clicking background (not image / buttons)
 lightbox.addEventListener("click", (e) => {
-  if (e.target === lightbox) closeLightbox();
+  if (e.target === lightbox) {
+    closeLightbox();
+  }
 });
 
-// NAVIGATION
+/* ---------- NAVIGATION ---------- */
 function showNext() {
   currentIndex = (currentIndex + 1) % galleryImages.length;
   lightboxImg.src = galleryImages[currentIndex].src;
@@ -50,10 +51,18 @@ function showPrev() {
   lightboxImg.src = galleryImages[currentIndex].src;
 }
 
-nextBtn.addEventListener("click", showNext);
-prevBtn.addEventListener("click", showPrev);
+// Arrow buttons
+prevBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  showPrev();
+});
 
-// KEYBOARD
+nextBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  showNext();
+});
+
+/* ---------- KEYBOARD SUPPORT ---------- */
 document.addEventListener("keydown", (e) => {
   if (!lightbox.classList.contains("active")) return;
 
@@ -62,36 +71,41 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeLightbox();
 });
 
-
-// 📱 TOUCH SWIPE SUPPORT
+/* ---------- MOBILE TOUCH SUPPORT ---------- */
 let startX = 0;
 let startY = 0;
 
-lightboxImg.addEventListener("touchstart", (e) => {
+lightbox.addEventListener("touchstart", (e) => {
   startX = e.touches[0].clientX;
   startY = e.touches[0].clientY;
 });
 
-lightboxImg.addEventListener("touchend", (e) => {
+lightbox.addEventListener("touchend", (e) => {
   const endX = e.changedTouches[0].clientX;
   const endY = e.changedTouches[0].clientY;
 
   const diffX = endX - startX;
   const diffY = endY - startY;
 
-  // Horizontal swipe
-  if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+  // Swipe left / right
+  if (Math.abs(diffX) > 60 && Math.abs(diffX) > Math.abs(diffY)) {
     diffX > 0 ? showPrev() : showNext();
   }
 
   // Swipe down to close
-  if (diffY > 80) {
+  if (diffY > 90) {
     closeLightbox();
   }
 });
 
-
+/* ---------- DISABLE RIGHT CLICK ---------- */
 document.addEventListener("contextmenu", (e) => {
   e.preventDefault();
 });
 
+/* ---------- DISABLE IMAGE DRAG ---------- */
+document.addEventListener("dragstart", (e) => {
+  if (e.target.tagName === "IMG") {
+    e.preventDefault();
+  }
+});
